@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferro & Alma — Decoração Artesanal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #B8955A;
+    --gold-light: #D4B483;
+    --gold-dark: #8A6C3A;
+    --cream: #FAF8F4;
+    --warm-white: #F5F2EC;
+    --charcoal: #1C1A17;
+    --charcoal-soft: #2E2B26;
+    --text-mid: #5A5650;
+    --text-light: #8A8580;
+    --border: rgba(184,149,90,0.2);
+    --border-strong: rgba(184,149,90,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(250,248,244,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--charcoal); text-decoration: none;
+    z-index: 201;
+  }
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--charcoal); color: var(--cream) !important;
+    padding: 0.6rem 1.4rem; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-dark) !important; }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center;
+    gap: 5px; cursor: pointer; z-index: 201;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 1.5px;
+    background: var(--charcoal);
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MOBILE DRAWER ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; inset: 0; z-index: 199;
+    background: var(--cream);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-size: 1.1rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--charcoal); text-decoration: none;
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mob-cta {
+    background: var(--charcoal); color: var(--cream) !important;
+    padding: 0.85rem 2.5rem; border-radius: 2px;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.15em;
+  }
+  .mobile-menu .mob-divider {
+    width: 40px; height: 0.5px; background: var(--border-strong);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 2rem 4rem;
+    position: relative; background: var(--cream); overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(184,149,90,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem; font-weight: 400;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 300;
+    line-height: 1.05; letter-spacing: -0.01em;
+    color: var(--charcoal); margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .hero-sub {
+    font-size: 1rem; color: var(--text-mid); max-width: 480px;
+    font-weight: 300; margin-bottom: 3rem; line-height: 1.8;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .hero-divider { width: 60px; height: 1px; background: var(--gold); margin: 4rem auto 0; opacity: 0.4; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: var(--gold); color: #fff;
+    padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    border: none; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s; cursor: pointer; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-dark); }
+
+  .btn-outline {
+    background: transparent; color: var(--charcoal);
+    padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif;
+    font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+    border: 0.5px solid var(--border-strong); border-radius: 2px;
+    text-decoration: none; transition: all 0.2s; cursor: pointer; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 400;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300;
+    line-height: 1.15; color: var(--charcoal); margin-bottom: 1rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ── FEATURED BAND ── */
+  .featured-band {
+    background: var(--charcoal); padding: 5rem 4rem; text-align: center;
+  }
+  .featured-band .section-label { color: var(--gold-light); }
+  .featured-band .section-title { color: var(--cream); }
+  .featured-band p { color: rgba(250,248,244,0.6); max-width: 500px; margin: 0 auto 3rem; }
+
+  /* ── PRODUCTS ── */
+  #produtos { background: var(--warm-white); }
+  .products-header { text-align: center; margin-bottom: 4rem; }
+  .products-header p { color: var(--text-mid); max-width: 500px; margin: 0 auto; }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem; max-width: 1200px; margin: 0 auto;
+  }
+  .product-card {
+    background: var(--cream); border: 0.5px solid var(--border);
+    border-radius: 2px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(28,26,23,0.08); }
+  .product-image { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; background: #ede9e0; }
+  .product-info { padding: 1.5rem; }
+  .product-category {
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem; font-weight: 400;
+  }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    font-weight: 400; color: var(--charcoal); margin-bottom: 0.5rem; line-height: 1.2;
+  }
+  .product-desc { font-size: 0.82rem; color: var(--text-light); margin-bottom: 1.25rem; line-height: 1.6; }
+  .product-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 0.5px solid var(--border); padding-top: 1rem;
+  }
+  .product-price {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem;
+    font-weight: 600; color: var(--charcoal);
+  }
+  .btn-buy {
+    background: var(--charcoal); color: var(--cream);
+    padding: 0.55rem 1.2rem; font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border: none; border-radius: 2px; text-decoration: none;
+    transition: background 0.2s; white-space: nowrap; cursor: pointer;
+  }
+  .btn-buy:hover { background: var(--gold-dark); }
+
+  /* ── ABOUT ── */
+  #sobre { background: var(--cream); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: center; max-width: 1100px; margin: 0 auto;
+  }
+  .about-text p { color: var(--text-mid); font-size: 0.95rem; margin-bottom: 1.2rem; line-height: 1.85; }
+  .about-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .pillar {
+    padding: 2rem; border: 0.5px solid var(--border);
+    border-top: 2px solid var(--gold); background: var(--warm-white);
+  }
+  .pillar-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+    font-weight: 600; color: var(--charcoal); margin-bottom: 0.5rem;
+  }
+  .pillar p { font-size: 0.8rem; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── SEJA REVENDEDOR ── */
+  #revendedor { background: var(--charcoal); padding: 7rem 4rem; }
+
+  .reseller-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+  }
+
+  .reseller-left .section-label { color: var(--gold-light); }
+  .reseller-left .section-title { color: var(--cream); }
+  .reseller-left > p { color: rgba(250,248,244,0.55); font-size: 0.92rem; line-height: 1.85; margin-bottom: 2.5rem; }
+
+  .reseller-benefits { display: flex; flex-direction: column; gap: 0; }
+  .benefit-item {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    padding: 1.25rem 0; border-bottom: 0.5px solid rgba(184,149,90,0.15);
+  }
+  .benefit-item:first-child { border-top: 0.5px solid rgba(184,149,90,0.15); }
+  .benefit-icon {
+    width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%;
+    background: rgba(184,149,90,0.12); border: 0.5px solid rgba(184,149,90,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .benefit-text strong {
+    display: block; font-size: 0.85rem; font-weight: 500;
+    color: var(--cream); margin-bottom: 0.2rem; letter-spacing: 0.02em;
+  }
+  .benefit-text p { font-size: 0.78rem; color: rgba(250,248,244,0.45); line-height: 1.6; }
+
+  /* form box */
+  .reseller-form-box {
+    background: var(--cream);
+    border-top: 2px solid var(--gold);
+    padding: 2.5rem;
+  }
+  .reseller-form-box h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.6rem;
+    font-weight: 400; color: var(--charcoal); margin-bottom: 0.4rem;
+  }
+  .reseller-form-box > p { font-size: 0.82rem; color: var(--text-mid); margin-bottom: 1.75rem; line-height: 1.6; }
+
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block; font-size: 0.68rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-light); margin-bottom: 0.35rem;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.7rem 0.9rem;
+    background: var(--warm-white); border: 0.5px solid var(--border-strong);
+    border-radius: 2px; font-family: 'Jost', sans-serif;
+    font-size: 0.85rem; color: var(--charcoal);
+    outline: none; transition: border-color 0.2s; appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 75px; }
+  .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8580' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.5rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  .form-success { display: none; text-align: center; padding: 2rem 0; }
+  .form-success .check { font-size: 2.5rem; color: var(--gold); margin-bottom: 0.75rem; }
+  .form-success h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .form-success p { font-size: 0.82rem; color: var(--text-mid); }
+
+  /* ── CTA STRIP ── */
+  .cta-strip { background: var(--charcoal-soft); padding: 5rem 4rem; text-align: center; }
+  .cta-strip .section-title { color: var(--cream); margin-bottom: 1rem; }
+  .cta-strip p { color: rgba(250,248,244,0.55); margin-bottom: 2.5rem; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--charcoal); padding: 4rem; color: rgba(250,248,244,0.5); font-size: 0.8rem; }
+  .footer-inner {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    max-width: 1100px; margin: 0 auto; flex-wrap: wrap; gap: 2rem;
+  }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--cream); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.75rem; color: rgba(250,248,244,0.4); }
+  .footer-links { display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-links a { color: rgba(250,248,244,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 0.5px solid rgba(250,248,244,0.1);
+    text-align: center; font-size: 0.72rem; color: rgba(250,248,244,0.3);
+    max-width: 1100px; margin-left: auto; margin-right: auto;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 300;
+    background: rgba(28,26,23,0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--cream); border-radius: 2px;
+    width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .modal-img { width: 100%; height: 100%; min-height: 300px; object-fit: cover; display: block; background: #ede9e0; }
+  .modal-content { padding: 2.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .modal-category { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); font-weight: 400; }
+  .modal-name { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; line-height: 1.1; color: var(--charcoal); }
+  .modal-price { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--charcoal); }
+  .modal-desc { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; }
+  .modal-features { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .modal-features li { font-size: 0.8rem; color: var(--text-mid); display: flex; gap: 0.5rem; }
+  .modal-features li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+  .modal-actions { display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1rem; }
+  .btn-whatsapp {
+    background: #25D366; color: #fff; padding: 0.9rem;
+    font-family: 'Jost', sans-serif; font-size: 0.8rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; border-radius: 2px; text-align: center;
+    text-decoration: none; cursor: pointer; transition: background 0.2s; display: block;
+  }
+  .btn-whatsapp:hover { background: #1da855; }
+  .btn-close {
+    background: transparent; color: var(--text-light); padding: 0.5rem;
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: none; cursor: pointer; transition: color 0.2s; text-align: center;
+  }
+  .btn-close:hover { color: var(--charcoal); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    section { padding: 4rem 1.5rem; }
+    #revendedor { padding: 4rem 1.5rem; }
+    .featured-band, .cta-strip { padding: 4rem 1.5rem; }
+    footer { padding: 3rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .modal { grid-template-columns: 1fr; }
+    .modal-img { min-height: 200px; max-height: 260px; }
+    .reseller-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ferro <span>&</span> Alma</a>
+  <ul class="nav-links">
+    <li><a href="#produtos">Produtos</a></li>
+    <li><a href="#sobre">Nossa História</a></li>
+    <li><a href="#revendedor">Revendedores</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="https://wa.me/5521999999999" target="_blank" class="nav-cta">Falar no WhatsApp</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#produtos" onclick="closeMenu()">Produtos</a>
+  <div class="mob-divider"></div>
+  <a href="#sobre" onclick="closeMenu()">Nossa História</a>
+  <div class="mob-divider"></div>
+  <a href="#revendedor" onclick="closeMenu()">Revendedores</a>
+  <div class="mob-divider"></div>
+  <a href="#contato" onclick="closeMenu()">Contato</a>
+  <div class="mob-divider"></div>
+  <a href="https://wa.me/5521999999999" target="_blank" class="mob-cta" onclick="closeMenu()">Falar no WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Decoração Artesanal em Ferro</p>
+  <h1>Objetos com <em>alma</em><br>para sua casa</h1>
+  <p class="hero-sub">Peças únicas em ferro artesanal que unem beleza atemporal e funcionalidade. Cada detalhe pensado para transformar seu espaço.</p>
+  <div class="hero-actions">
+    <a href="#produtos" class="btn-primary">Ver coleção</a>
+    <a href="https://wa.me/5521999999999" target="_blank" class="btn-outline">Falar conosco</a>
+  </div>
+  <div class="hero-divider"></div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="produtos">
+  <div class="products-header">
+    <p class="section-label">Coleção</p>
+    <h2 class="section-title">Nossas <em>peças</em></h2>
+    <p>Design elegante e materiais de qualidade para quem valoriza o belo e o durável.</p>
+  </div>
+  <div class="products-grid" id="grid"></div>
+</section>
+
+<!-- FEATURED BAND -->
+<div class="featured-band">
+  <p class="section-label">Diferencial</p>
+  <h2 class="section-title" style="color:var(--cream)">Ferro que <em style="color:var(--gold-light)">dura gerações</em></h2>
+  <p>Cada peça é produzida com ferro de alta resistência e acabamento cuidadoso, garantindo beleza e durabilidade no dia a dia.</p>
+  <a href="https://wa.me/5521999999999" target="_blank" class="btn-primary">Fazer um pedido</a>
+</div>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">Nossa História</p>
+      <h2 class="section-title">Artesanato com <em>propósito</em></h2>
+      <p>A Ferro & Alma nasceu da paixão pelo trabalho artesanal e pelo desejo de levar beleza e funcionalidade para os lares brasileiros.</p>
+      <p>Nossas peças são desenvolvidas com cuidado e atenção a cada detalhe, utilizando ferro de alta qualidade combinado com madeira e outros materiais nobres.</p>
+      <p>Acreditamos que cada objeto tem o poder de transformar um ambiente — e é essa crença que nos move todos os dias.</p>
+      <br>
+      <a href="https://wa.me/5521999999999" target="_blank" class="btn-outline">Entre em contato</a>
+    </div>
+    <div class="about-pillars">
+      <div class="pillar"><p class="pillar-title">Qualidade</p><p>Ferro resistente e durável, selecionado para garantir longevidade em cada peça.</p></div>
+      <div class="pillar"><p class="pillar-title">Design</p><p>Estética atemporal que combina com diferentes estilos de decoração.</p></div>
+      <div class="pillar"><p class="pillar-title">Artesanato</p><p>Cada detalhe trabalhado com cuidado e atenção pelo nosso time.</p></div>
+      <div class="pillar"><p class="pillar-title">Exclusividade</p><p>Peças únicas que transformam qualquer espaço em algo especial.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEJA REVENDEDOR -->
+<section id="revendedor">
+  <div class="reseller-inner">
+
+    <!-- Lado esquerdo: benefícios -->
+    <div class="reseller-left">
+      <p class="section-label">Programa de Parceiros</p>
+      <h2 class="section-title">Seja nosso <em style="color:var(--gold-light)">revendedor</em></h2>
+      <p>Faça parte da rede Ferro & Alma e lucre vendendo produtos artesanais de alto valor percebido. Oferecemos suporte completo para você crescer com a gente.</p>
+
+      <div class="reseller-benefits">
+        <div class="benefit-item">
+          <div class="benefit-icon">💰</div>
+          <div class="benefit-text">
+            <strong>Preços exclusivos de revenda</strong>
+            <p>Descontos especiais que garantem excelente margem de lucro para o seu negócio.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📦</div>
+          <div class="benefit-text">
+            <strong>Sem estoque mínimo obrigatório</strong>
+            <p>Comece do seu jeito, sem pressão. Compre conforme a sua demanda.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🤝</div>
+          <div class="benefit-text">
+            <strong>Suporte e material de divulgação</strong>
+            <p>Fotos profissionais, artes prontas e atendimento dedicado para ajudar nas suas vendas.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🚚</div>
+          <div class="benefit-text">
+            <strong>Frete facilitado para revendedores</strong>
+            <p>Condições especiais de envio para pedidos de revenda em todo o Brasil.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lado direito: formulário -->
+    <div class="reseller-form-box">
+      <h3>Quero ser revendedor</h3>
+      <p>Preencha o formulário e entraremos em contato em até 24 horas úteis com todas as informações.</p>
+
+      <div id="resellerForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" id="r-name" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" id="r-phone" placeholder="(00) 00000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" id="r-email" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Cidade / Estado</label>
+          <input type="text" id="r-city" placeholder="Ex: São Paulo - SP">
+        </div>
+        <div class="form-group">
+          <label>Como pretende revender?</label>
+          <select id="r-channel">
+            <option value="" disabled selected>Selecione uma opção</option>
+            <option>Loja física</option>
+            <option>Loja online / e-commerce</option>
+            <option>Redes sociais (Instagram, TikTok etc.)</option>
+            <option>Feiras e mercados</option>
+            <option>Catálogo / venda direta</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensagem (opcional)</label>
+          <textarea id="r-msg" placeholder="Conte um pouco sobre você ou tire alguma dúvida..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:0.9rem;" onclick="submitReseller()">Enviar interesse</button>
+      </div>
+
+      <div class="form-success" id="resellerSuccess">
+        <div class="check">✦</div>
+        <h4>Interesse enviado!</h4>
+        <p>Recebemos seu cadastro e entraremos em contato em breve pelo WhatsApp ou e-mail informados.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-strip" id="contato">
+  <p class="section-label" style="color:var(--gold-light)">Fale Conosco</p>
+  <h2 class="section-title">Pronto para transformar<br><em style="color:var(--gold-light)">seu espaço?</em></h2>
+  <p>Entre em contato via WhatsApp e tire suas dúvidas ou faça seu pedido com facilidade.</p>
+  <a href="https://wa.me/5521999999999" target="_blank" class="btn-primary">Abrir WhatsApp</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Ferro <span>&</span> Alma</div>
+      <div class="footer-tagline">Decoração artesanal em ferro</div>
+    </div>
+    <div class="footer-links">
+      <a href="#produtos">Produtos</a>
+      <a href="#sobre">Sobre nós</a>
+      <a href="#revendedor">Seja revendedor</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="footer-links">
+      <a href="https://wa.me/5521999999999" target="_blank">WhatsApp</a>
+      <a href="#">Instagram</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 Ferro & Alma — Todos os direitos reservados</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <img id="modal-img" src="" alt="" class="modal-img">
+    <div class="modal-content">
+      <p class="modal-category" id="modal-cat"></p>
+      <h3 class="modal-name" id="modal-name"></h3>
+      <div class="modal-price" id="modal-price"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <ul class="modal-features" id="modal-feats"></ul>
+      <div class="modal-actions">
+        <a id="modal-wa" href="#" target="_blank" class="btn-whatsapp">Comprar pelo WhatsApp</a>
+        <button class="btn-close" onclick="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WHATSAPP = '5521999999999';
+
+/* ── HAMBURGER ── */
+function toggleMenu() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const open = btn.classList.toggle('open');
+  menu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ── PRODUCTS ── */
+const products = [
+  { id:1, name:'Suporte para Coador de Café', category:'Cozinha', price:'R$ 89,90',
+    desc:'Mais charme e praticidade no seu ritual de café. Design elegante em ferro que valoriza sua cozinha e transforma o momento do café em algo especial.',
+    features:['Design elegante e atemporal','Ferro resistente e durável','Praticidade no preparo do café','Base em madeira inclusa'], img:'img/pecas/coador_cafe.jpg' },
+  { id:2, name:'Luminária Pendente Clássica', category:'Iluminação', price:'R$ 179,90',
+    desc:'Design atemporal que une elegância e aconchego. Perfeita para valorizar salas, varandas, áreas gourmet e muito mais.',
+    features:['Soquete E27 compatível com diversas lâmpadas','Bivolt 127V / 220V','Acabamento premium sofisticado','Garantia de 3 meses'], img:'img/pecas/luminária_2.jpg' },
+  { id:3, name:'Sapateira Rústica', category:'Organização', price:'R$ 249,90',
+    desc:'Organização e estilo para o seu dia a dia. Estrutura resistente com madeira de alta qualidade e design rústico que combina com qualquer ambiente.',
+    features:['Estrutura em ferro resistente','Madeira de alta qualidade','Design rústico e elegante','Combina com qualquer ambiente'], img:'img/pecas/sapateira_.jpg' },
+  { id:4, name:'Suporte Pendente para Plantas', category:'Jardim', price:'R$ 79,90',
+    desc:'Beleza que suspende, natureza que transforma. Suporte de parede em ferro para vasos suspensos, ideal para criar jardins verticais em qualquer ambiente.',
+    features:['Design elegante e atemporal','Ferro resistente e durável','Ideal para vasos suspensos','Perfeito para vários ambientes'], img:'img/pecas/suporte_planta_pendente_.jpg' },
+  { id:5, name:'Treliça com 5 Suportes para Plantas', category:'Jardim', price:'R$ 329,90',
+    desc:'Transforme paredes em jardins. Treliça em ferro com 5 suportes integrados — estrutura firme e segura que acomoda 5 vasos com facilidade.',
+    features:['Estrutura firme e segura','Acomoda 5 vasos','Fácil de instalar e versátil','Ferro resistente e durável'], img:'img/pecas/Treliça_suporte_plantas_.jpg' },
+  { id:6, name:'Tripé para Plantas', category:'Jardim', price:'R$ 189,90',
+    desc:'Beleza, organização e vida para seus ambientes. Tripé em ferro com 3 níveis para expor suas plantas com estilo em varandas, salas, jardins e muito mais.',
+    features:['Estrutura em ferro resistente','3 níveis para mais espaço','Base estável com acabamento reforçado','Design elegante e versátil'], img:'img/pecas/tripe_.jpg' }
+];
+
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  products.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.onclick = () => openModal(p);
+    card.innerHTML = `
+      <img class="product-image" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.background='#ede9e0';this.src=''">
+      <div class="product-info">
+        <p class="product-category">${p.category}</p>
+        <h3 class="product-name">${p.name}</h3>
+        <p class="product-desc">${p.desc.substring(0,90)}…</p>
+        <div class="product-footer">
+          <div class="product-price">${p.price}</div>
+          <span class="btn-buy">Ver produto</span>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+function openModal(p) {
+  document.getElementById('modal-img').src = p.img;
+  document.getElementById('modal-img').alt = p.name;
+  document.getElementById('modal-cat').textContent = p.category;
+  document.getElementById('modal-name').textContent = p.name;
+  document.getElementById('modal-price').innerHTML = p.price;
+  document.getElementById('modal-desc').textContent = p.desc;
+  document.getElementById('modal-feats').innerHTML = p.features.map(f=>`<li>${f}</li>`).join('');
+  const msg = encodeURIComponent(`Olá! Tenho interesse em: *${p.name}* (${p.price}). Poderia me dar mais informações?`);
+  document.getElementById('modal-wa').href = `https://wa.me/${WHATSAPP}?text=${msg}`;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+/* ── RESELLER FORM ── */
+function submitReseller() {
+  const name    = document.getElementById('r-name').value.trim();
+  const phone   = document.getElementById('r-phone').value.trim();
+  const email   = document.getElementById('r-email').value.trim();
+  const city    = document.getElementById('r-city').value.trim();
+  const channel = document.getElementById('r-channel').value;
+
+  if (!name || !phone || !email || !city || !channel) {
+    alert('Por favor, preencha todos os campos obrigatórios.');
+    return;
+  }
+
+  const msg = encodeURIComponent(
+    `*Novo interesse de revendedor* ✦\n\n` +
+    `👤 *Nome:* ${name}\n` +
+    `📱 *WhatsApp:* ${phone}\n` +
+    `📧 *E-mail:* ${email}\n` +
+    `📍 *Cidade:* ${city}\n` +
+    `🛍️ *Canal:* ${channel}\n` +
+    `💬 *Mensagem:* ${document.getElementById('r-msg').value || '—'}`
+  );
+
+  window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+
+  document.getElementById('resellerForm').style.display = 'none';
+  document.getElementById('resellerSuccess').style.display = 'block';
+}
+
+buildGrid();
+</script>
+</body>
+</html>
