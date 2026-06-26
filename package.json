@@ -1,0 +1,24 @@
+{
+  "name": "ferroealma",
+  "version": "1.0.0",
+  "description": "Ferro & Alma — Decoração Artesanal",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "decoracao",
+    "artesanal",
+    "ferro"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
