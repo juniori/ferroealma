@@ -65,10 +65,12 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+/*
 // Iniciar servidor
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
   console.log(`📁 Arquivos estáticos servidos de: public/`);
 });
+*/
 
 module.exports = app;
