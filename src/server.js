@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3001;
 const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER;
 const emailService = new EmailService();
 
+console.log('WHATSAPP_NUMBER ====>', process.env.WHATSAPP_NUMBER);
+
 app.use(express.json());
 
 // Middleware para injetar variáveis de ambiente no HTML
