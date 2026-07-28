@@ -6,7 +6,7 @@ const { EmailService } = require('./services/emailService');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '5521999999999';
+const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER;
 const emailService = new EmailService();
 
 app.use(express.json());
