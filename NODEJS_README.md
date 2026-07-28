@@ -38,21 +38,6 @@ O servidor estará disponível em `http://localhost:3000`
 npm start
 ```
 
-## 📁 Estrutura do Projeto
-
-```
-ferroealma/
-├── src/
-│   └── server.js              # Servidor Express.js
-├── public/                     # Arquivos estáticos (CSS, JS, imagens)
-│   ├── index.html              # Página principal
-│   └── img/
-│       └── pecas/              # Imagens dos produtos
-├── package.json                # Dependências do projeto
-├── .env.example                # Exemplo de variáveis de ambiente
-├── .gitignore                  # Arquivos ignorados pelo Git
-└── README.md                   # Este arquivo
-```
 
 ## 📦 Dependências
 
@@ -90,6 +75,10 @@ Para fazer deploy, certifique-se de:
 
 Para mais informações sobre Ferro & Alma, acesse o site ou envie uma mensagem via WhatsApp.
 
-## 📄 Licença
+## 📄 Publicar no vercel
+cd ~/Pessoal/git/ferroealma
+rm package-lock.json
+git add .
+git commit -a -m "comentério xxxx"
+git push
 
-ISC
