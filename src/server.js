@@ -1,3 +1,8 @@
+console.log('====================================');
+console.log('SERVER.JS FOI CARREGADO');
+console.log('WHATSAPP_NUMBER:', process.env.WHATSAPP_NUMBER);
+console.log('====================================');
+
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
