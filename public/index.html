@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ferro & Alma — Decoração Artesanal</title>
+<title>Ferro & Alma — Decoração Artesanal i</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -689,32 +689,37 @@ function closeModal(e) {
 }
 
 /* ── RESELLER FORM ── */
-function submitReseller() {
+async function submitReseller() {
   const name    = document.getElementById('r-name').value.trim();
   const phone   = document.getElementById('r-phone').value.trim();
   const email   = document.getElementById('r-email').value.trim();
   const city    = document.getElementById('r-city').value.trim();
   const channel = document.getElementById('r-channel').value;
+  const message = document.getElementById('r-msg').value.trim();
 
   if (!name || !phone || !email || !city || !channel) {
     alert('Por favor, preencha todos os campos obrigatórios.');
     return;
   }
 
-  const msg = encodeURIComponent(
-    `*Novo interesse de revendedor* ✦\n\n` +
-    `👤 *Nome:* ${name}\n` +
-    `📱 *WhatsApp:* ${phone}\n` +
-    `📧 *E-mail:* ${email}\n` +
-    `📍 *Cidade:* ${city}\n` +
-    `🛍️ *Canal:* ${channel}\n` +
-    `💬 *Mensagem:* ${document.getElementById('r-msg').value || '—'}`
-  );
+  try {
+    const response = await fetch('/api/reseller-interest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, email, city, channel, message })
+    });
 
-  window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+    const result = await response.json();
 
-  document.getElementById('resellerForm').style.display = 'none';
-  document.getElementById('resellerSuccess').style.display = 'block';
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || 'Não foi possível enviar o interesse.');
+    }
+
+    document.getElementById('resellerForm').style.display = 'none';
+    document.getElementById('resellerSuccess').style.display = 'block';
+  } catch (error) {
+    alert(error.message || 'Não foi possível enviar o interesse.');
+  }
 }
 
 buildGrid();

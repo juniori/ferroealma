@@ -2,10 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const { EmailService } = require('./services/emailService');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const WHATSAPP_NUMBER = process.env.WHATSAPP_NUMBER || '5521999999999';
+const emailService = new EmailService();
+
+app.use(express.json());
 
 // Middleware para injetar variáveis de ambiente no HTML
 app.get('/', (req, res) => {
@@ -24,6 +28,34 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Rota de health check (opcional)
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Servidor rodando normalmente' });
+});
+
+app.post('/api/reseller-interest', async (req, res) => {
+  try {
+    const { name, phone, email, city, channel, message } = req.body || {};
+
+    if (!name || !phone || !email || !city || !channel) {
+      return res.status(400).json({ success: false, message: 'Preencha todos os campos obrigatórios.' });
+    }
+
+    const result = await emailService.sendResellerInterestEmail({
+      name,
+      phone,
+      email,
+      city,
+      channel,
+      message
+    });
+
+    if (!result.ok) {
+      return res.status(202).json({ success: true, message: 'Interesse recebido, mas o e-mail não foi enviado por falta de configuração SMTP.' });
+    }
+
+    return res.json({ success: true, message: 'Interesse enviado com sucesso.' });
+  } catch (error) {
+    console.error('Erro ao enviar interesse:', error);
+    return res.status(500).json({ success: false, message: 'Não foi possível enviar o interesse no momento.' });
+  }
 });
 
 // Tratamento de erro 404
