@@ -53,7 +53,7 @@ class EmailService {
       </div>
     `;
   }
-
+ 
   async sendResellerInterestEmail({ name, phone, email, city, channel, message }) {
     if (!this.transporter) {
       console.warn('SMTP não configurado. O e-mail não foi enviado.');

@@ -7,6 +7,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 const { EmailService } = require('./services/emailService');
 
 const app = express();
